@@ -11,12 +11,27 @@ class Cliente extends Model
 
     protected $fillable = [
         'nombre',
-        'edad',
-        'sexo',
+        'apellidoPaterno',
+        'apellidoMaterno',
+        'cuenta',
+        'usuarioCreacionId',
         'activo',
     ];
 
     protected $casts = [
         'activo' => 'boolean',
     ];
+
+    /**
+     * Relación con el usuario que creó el cliente
+     */
+    public function usuarioCreacion()
+    {
+        return $this->belongsTo(User::class, 'usuarioCreacionId');
+    }
+
+    public function ventasGenerales()
+    {
+        return $this->hasMany(VentaGeneral::class, 'cliente_id');
+    }
 }

@@ -18,24 +18,34 @@
                 @enderror
             </div>
 
-            <!-- Edad -->
+            <!-- Apellido Paterno -->
             <div class="mb-4">
-                <label class="block font-medium text-white">Edad</label>
-                <input type="number" name="edad" value="{{ $cliente->edad }}" 
+                <label class="block font-medium text-white">Apellido Paterno</label>
+                <input type="text" name="apellidoPaterno" value="{{ $cliente->apellidoPaterno }}" 
                        class="w-full rounded-lg bg-white/20 text-white placeholder-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300" required>
-                @error('edad')
+                @error('apellidoPaterno')
                     <p class="text-red-200 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
 
-            <!-- Sexo -->
+            <!-- Apellido Materno -->
             <div class="mb-4">
-                <label class="block font-medium text-white">Sexo</label>
-                <select name="sexo" 
-                        class="w-full rounded-lg bg-white/20 text-white placeholder-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300" required>
-                    <option value="MASCULINO" {{ $cliente->sexo == 'MASCULINO' ? 'selected' : '' }}>Masculino</option>
-                    <option value="FEMENINO" {{ $cliente->sexo == 'FEMENINO' ? 'selected' : '' }}>Femenino</option>
-                </select>
+                <label class="block font-medium text-white">Apellido Materno</label>
+                <input type="text" name="apellidoMaterno" value="{{ $cliente->apellidoMaterno }}" 
+                       class="w-full rounded-lg bg-white/20 text-white placeholder-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300" required>
+                @error('apellidoMaterno')
+                    <p class="text-red-200 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Cuenta -->
+            <div class="mb-4">
+                <label class="block font-medium text-white">Cuenta</label>
+                <input type="number" name="cuenta" value="{{ $cliente->cuenta }}" 
+                       class="w-full rounded-lg bg-white/20 text-white placeholder-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300" required>
+                @error('cuenta')
+                    <p class="text-red-200 text-sm mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <!-- Activo -->
@@ -55,5 +65,4 @@
             </div>
         </form>
     </div>
-
 </x-app-layout>

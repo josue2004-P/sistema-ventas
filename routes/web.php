@@ -5,6 +5,7 @@ use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ClienteVentaController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,11 @@ Route::middleware(['auth'])->group(function () {
     ]);
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('clientes', ClienteController::class);
+
+    Route::get('clientes/{cliente}/venta-general', [ClienteController::class, 'clienteVentaGeneral'])
+     ->name('clientes.venta-general');
+     Route::put('clientes/{id}/venta-general', [ClienteController::class, 'updateVentas'])->name('venta-general.update');
+     
 });
 
 Route::get('/dashboard', function () {
