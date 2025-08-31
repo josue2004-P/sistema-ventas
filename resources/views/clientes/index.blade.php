@@ -29,7 +29,7 @@
     </div>
 
     {{-- Cards para móvil/tablet --}}
-    <div class=" h-[calc(60vh-3rem)] overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-4 lg:hidden">
+    <div class=" h-[40vh] overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-4 lg:hidden">
         @forelse($clientes as $cliente)
             <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-lg hover:bg-white/20 transition">
                 <div class="flex justify-between items-center mb-2">
