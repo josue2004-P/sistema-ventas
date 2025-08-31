@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html, body, #app {
+  height: 100dvh; /* altura dinámica excluyendo barras de navegador */
+}
