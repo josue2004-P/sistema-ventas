@@ -23,21 +23,28 @@ class ClienteController extends Controller
     // Guardar nuevo cliente
     public function store(Request $request)
     {
+        // Capturamos el valor real del checkbox (1 o 0)
+        $esNegocio = $request->boolean('esNegocio'); // true si es 1, false si no existe o 0
+
         $request->validate([
-            'nombre'          => 'required|string|max:100|unique:clientes,nombre',
-            'apellidoPaterno' => 'required|string|max:100',
-            'apellidoMaterno' => 'required|string|max:100',
-            'cuenta'          => 'required|integer|unique:clientes,cuenta',
-            'activo'          => 'nullable|boolean',
+            'esNegocio'        => 'nullable|boolean',
+            'nombreComercio'   => $esNegocio ? 'required|string|max:150' : 'nullable',
+            'nombre'           => !$esNegocio ? 'required|string|max:100|unique:clientes,nombre' : 'nullable',
+            'apellidoPaterno'  => !$esNegocio ? 'required|string|max:100' : 'nullable',
+            'apellidoMaterno'  => !$esNegocio ? 'required|string|max:100' : 'nullable',
+            'cuenta'           => 'required|integer|unique:clientes,cuenta',
+            'activo'           => 'nullable|boolean',
         ]);
 
         Cliente::create([
-            'nombre'            => $request->nombre,
-            'apellidoPaterno'   => $request->apellidoPaterno,
-            'apellidoMaterno'   => $request->apellidoMaterno,
-            'cuenta'            => $request->cuenta,
-            'usuarioCreacionId' => auth()->id(),
-            'activo'            => $request->has('activo') ? $request->activo : true,
+            'esNegocio'        => $esNegocio,
+            'nombreComercio'   => $esNegocio ? $request->nombreComercio : null,
+            'nombre'           => !$esNegocio ? $request->nombre : null,
+            'apellidoPaterno'  => !$esNegocio ? $request->apellidoPaterno : null,
+            'apellidoMaterno'  => !$esNegocio ? $request->apellidoMaterno : null,
+            'cuenta'           => $request->cuenta,
+            'usuarioCreacionId'=> auth()->id(),
+            'activo'           => $request->boolean('activo', true),
         ]);
 
         return redirect()->route('clientes.index')->with('success', 'Cliente creado correctamente');
@@ -56,22 +63,31 @@ class ClienteController extends Controller
     }
 
     // Actualizar cliente
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, $clienteId)
     {
+        $cliente = Cliente::findOrFail($clienteId);
+
+        // Capturamos el valor real del checkbox (true si es negocio)
+        $esNegocio = $request->boolean('esNegocio');
+
         $request->validate([
-            'nombre'          => 'required|string|max:100|unique:clientes,nombre,' . $cliente->id,
-            'apellidoPaterno' => 'required|string|max:100',
-            'apellidoMaterno' => 'required|string|max:100',
-            'cuenta'          => 'required|integer|unique:clientes,cuenta,' . $cliente->id,
-            'activo'          => 'nullable|boolean',
+            'esNegocio'        => 'nullable|boolean',
+            'nombreComercio'   => $esNegocio ? 'required|string|max:150' : 'nullable',
+            'nombre'           => !$esNegocio ? 'required|string|max:100|unique:clientes,nombre,' . $cliente->id : 'nullable',
+            'apellidoPaterno'  => !$esNegocio ? 'required|string|max:100' : 'nullable',
+            'apellidoMaterno'  => !$esNegocio ? 'required|string|max:100' : 'nullable',
+            'cuenta'           => 'required|integer|unique:clientes,cuenta,' . $cliente->id,
+            'activo'           => 'nullable|boolean',
         ]);
 
         $cliente->update([
-            'nombre'            => $request->nombre,
-            'apellidoPaterno'   => $request->apellidoPaterno,
-            'apellidoMaterno'   => $request->apellidoMaterno,
-            'cuenta'            => $request->cuenta,
-            'activo'            => $request->has('activo') ? $request->activo : true,
+            'esNegocio'        => $esNegocio,
+            'nombreComercio'   => $esNegocio ? $request->nombreComercio : null,
+            'nombre'           => !$esNegocio ? $request->nombre : null,
+            'apellidoPaterno'  => !$esNegocio ? $request->apellidoPaterno : null,
+            'apellidoMaterno'  => !$esNegocio ? $request->apellidoMaterno : null,
+            'cuenta'           => $request->cuenta,
+            'activo'           => $request->boolean('activo', true),
         ]);
 
         return redirect()->route('clientes.index')->with('success', 'Cliente actualizado correctamente');

@@ -10,7 +10,7 @@
             <thead class="bg-white/20">
                 <tr>
                     <th class="px-4 py-2 text-left">ID</th>
-                    <th class="px-4 py-2 text-left">Nombre Completo</th>
+                    <th class="px-4 py-2 text-left">Nombre Cliente / Nombre Negocio</th>
                     <th class="px-4 py-2 text-left">Cuenta</th>
                     <th class="px-4 py-2 text-left">Activo</th>
                     <th class="px-4 py-2 text-left">Acciones</th>
@@ -20,7 +20,12 @@
                 @foreach($clientes as $cliente)
                 <tr class="border-b border-white/20 hover:bg-white/10 transition">
                     <td class="px-4 py-2">{{ $cliente->id }}</td>
-                    <td class="px-4 py-2">{{ $cliente->nombre }} {{ $cliente->apellidoPaterno }} {{ $cliente->apellidoMaterno }}</td>
+                    <td class="px-4 py-2">
+                        {{ $cliente->esNegocio
+                            ? $cliente->nombreComercio 
+                            : trim($cliente->nombre . ' ' . $cliente->apellidoPaterno . ' ' . $cliente->apellidoMaterno) 
+                        }}
+                    </td>
                     <td class="px-4 py-2">{{ $cliente->cuenta }}</td>
                     <td class="px-4 py-2">{{ $cliente->activo ? 'Sí' : 'No' }}</td>
                     <td class="px-4 py-2 flex space-x-2">

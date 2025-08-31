@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
             PermisoDefaultSeeder::class,
             PerfilAdminSeeder::class,
             PermisoPerfilAdminSeeder::class,
-            VentaGeneralSeeder::class
+            // VentaGeneralSeeder::class
         ]);
     }
 }

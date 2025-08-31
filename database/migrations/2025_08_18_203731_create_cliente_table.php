@@ -13,13 +13,21 @@ return new class extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 100)->unique(); 
-            $table->string('apellidoPaterno', 100);
-            $table->string('apellidoMaterno', 100);
+
+            // Campos para persona física
+            $table->string('nombre', 100)->nullable(); 
+            $table->string('apellidoPaterno', 100)->nullable();
+            $table->string('apellidoMaterno', 100)->nullable();
+
+            // Campos para comercio
+            $table->boolean('esNegocio')->default(false);
+            $table->string('nombreComercio', 150)->nullable();
+
             $table->integer('cuenta')->unique(); 
             $table->foreignId('usuarioCreacionId')
                 ->constrained('users') 
                 ->onDelete('cascade');   
+
             $table->boolean('activo')->default(true); 
             $table->timestamps();
         });

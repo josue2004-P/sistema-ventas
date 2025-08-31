@@ -8,32 +8,52 @@
             @csrf
             @method('PUT')
 
-            <!-- Nombre -->
+            <!-- Es Negocio -->
             <div class="mb-4">
-                <label class="block font-medium text-white">Nombre</label>
-                <input type="text" name="nombre" value="{{ $cliente->nombre }}" 
-                       class="w-full rounded-lg bg-white/20 text-white placeholder-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300" required>
-                @error('nombre')
-                    <p class="text-red-200 text-sm mt-1">{{ $message }}</p>
-                @enderror
+                <label class="inline-flex items-center text-white font-medium">
+                    <input type="checkbox" id="esNegocio" name="esNegocio" value="1" 
+                           class="form-checkbox h-5 w-5 text-cyan-500"
+                           {{ $cliente->esNegocio ? 'checked' : '' }}>
+                    <span class="ml-2">Es negocio</span>
+                </label>
             </div>
 
-            <!-- Apellido Paterno -->
-            <div class="mb-4">
-                <label class="block font-medium text-white">Apellido Paterno</label>
-                <input type="text" name="apellidoPaterno" value="{{ $cliente->apellidoPaterno }}" 
-                       class="w-full rounded-lg bg-white/20 text-white placeholder-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300" required>
-                @error('apellidoPaterno')
-                    <p class="text-red-200 text-sm mt-1">{{ $message }}</p>
-                @enderror
+            <!-- Campos Persona Física -->
+            <div id="personaFisicaCampos">
+                <div class="mb-4">
+                    <label class="block font-medium text-white">Nombre</label>
+                    <input type="text" name="nombre" value="{{ $cliente->nombre }}" 
+                           class="w-full rounded-lg bg-white/20 text-white placeholder-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300">
+                    @error('nombre')
+                        <p class="text-red-200 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label class="block font-medium text-white">Apellido Paterno</label>
+                    <input type="text" name="apellidoPaterno" value="{{ $cliente->apellidoPaterno }}" 
+                           class="w-full rounded-lg bg-white/20 text-white placeholder-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300">
+                    @error('apellidoPaterno')
+                        <p class="text-red-200 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label class="block font-medium text-white">Apellido Materno</label>
+                    <input type="text" name="apellidoMaterno" value="{{ $cliente->apellidoMaterno }}" 
+                           class="w-full rounded-lg bg-white/20 text-white placeholder-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300">
+                    @error('apellidoMaterno')
+                        <p class="text-red-200 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
 
-            <!-- Apellido Materno -->
-            <div class="mb-4">
-                <label class="block font-medium text-white">Apellido Materno</label>
-                <input type="text" name="apellidoMaterno" value="{{ $cliente->apellidoMaterno }}" 
-                       class="w-full rounded-lg bg-white/20 text-white placeholder-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300" required>
-                @error('apellidoMaterno')
+            <!-- Campo Comercio -->
+            <div id="comercioCampo" class="mb-4">
+                <label class="block font-medium text-white">Nombre del Comercio</label>
+                <input type="text" name="nombreComercio" value="{{ $cliente->nombreComercio }}" 
+                       class="w-full rounded-lg bg-white/20 text-white placeholder-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300">
+                @error('nombreComercio')
                     <p class="text-red-200 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
@@ -42,7 +62,7 @@
             <div class="mb-4">
                 <label class="block font-medium text-white">Cuenta</label>
                 <input type="number" name="cuenta" value="{{ $cliente->cuenta }}" 
-                       class="w-full rounded-lg bg-white/20 text-white placeholder-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300" required>
+                       class="w-full rounded-lg bg-white/20 text-white placeholder-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300">
                 @error('cuenta')
                     <p class="text-red-200 text-sm mt-1">{{ $message }}</p>
                 @enderror
@@ -65,4 +85,29 @@
             </div>
         </form>
     </div>
+
+    @push('scripts')
+    <script>
+        const esNegocioCheckbox = document.getElementById('esNegocio');
+        const personaFisicaCampos = document.getElementById('personaFisicaCampos');
+        const comercioCampo = document.getElementById('comercioCampo');
+
+        function toggleCampos() {
+            if (esNegocioCheckbox.checked) {
+                personaFisicaCampos.classList.add('hidden');
+                comercioCampo.classList.remove('hidden');
+            } else {
+                personaFisicaCampos.classList.remove('hidden');
+                comercioCampo.classList.add('hidden');
+            }
+        }
+
+        // Inicializar al cargar
+        toggleCampos();
+
+        // Escuchar cambios
+        esNegocioCheckbox.addEventListener('change', toggleCampos);
+    </script>
+    @endpush
+
 </x-app-layout>
