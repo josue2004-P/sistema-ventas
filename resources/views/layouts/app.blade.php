@@ -16,7 +16,7 @@
     </head>
     <body class="font-sans antialiased bg-gradient-to-br from-blue-500 to-cyan-400 text-white  h-[calc(100dvh)]">
 
-    <div x-data="{ open: false }" class="flex h-screen">
+    <div x-data="{ open: false }" class="flex  h-[calc(100dvh)]">
 
         {{-- Sidebar --}}
         <x-sidebar />
