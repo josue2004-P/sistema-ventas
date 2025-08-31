@@ -12,8 +12,8 @@ class ClienteController extends Controller
     {
         $query = \App\Models\Cliente::query();
 
-        if ($nombre = request('nombre')) {
-            $query->where('nombre', 'like', "%{$nombre}%");
+        if ($cuenta = request('cuenta')) {
+            $query->where('cuenta', 'like', "%{$cuenta}%");
         }
 
         $clientes = $query->get();
