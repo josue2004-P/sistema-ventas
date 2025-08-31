@@ -10,7 +10,14 @@ class ClienteController extends Controller
     // Listar clientes
     public function index()
     {
-        $clientes = Cliente::all();
+        $query = \App\Models\Cliente::query();
+
+        if ($nombre = request('nombre')) {
+            $query->where('nombre', 'like', "%{$nombre}%");
+        }
+
+        $clientes = $query->get();
+
         return view('clientes.index', compact('clientes'));
     }
 

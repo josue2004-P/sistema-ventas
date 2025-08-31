@@ -16,15 +16,23 @@
 </head>
 <body class="font-sans antialiased bg-gradient-to-br from-blue-500 to-cyan-400 text-white">
 
-    <div class="flex min-h-screen">
+    <div x-data="{ open: false }" class="flex h-screen">
 
-        {{-- Sidebar como componente --}}
+        {{-- Sidebar --}}
         <x-sidebar />
 
-        {{-- Contenido principal --}}
-        <div class="flex-1 flex flex-col">
+        {{-- Overlay móvil --}}
+        <div x-show="open" @click="open = false" class="fixed inset-0 bg-black/50 z-40 md:hidden"></div>
 
-            <!-- Page Heading -->
+        {{-- Contenido principal --}}
+        <div class="flex-1 md:ml-64 flex flex-col">
+
+            {{-- Botón hamburger móvil --}}
+            <div class="md:hidden p-4">
+                <button @click="open = true" class="text-white text-2xl font-bold">&#9776;</button>
+            </div>
+
+            {{-- Page Heading --}}
             @isset($header)
                 <header class="bg-white/20 backdrop-blur-md shadow-md">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-white font-semibold">
@@ -33,7 +41,7 @@
                 </header>
             @endisset
 
-            <!-- Page Content -->
+            {{-- Page Content --}}
             <main class="flex-1 p-6 bg-white/10 backdrop-blur-md rounded-xl mx-4 my-4">
                 {{ $slot }}
             </main>
