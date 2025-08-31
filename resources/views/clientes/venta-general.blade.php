@@ -34,13 +34,15 @@
                             @php
                                 $value = $ventasPivot[$mes][$anio] ?? 0;
                             @endphp
-                            <td class="px-2 py-1">
-                                <div class="flex items-center">
-                                    <span class="mr-1">$</span>
-                                    <input type="number" step="0.01" name="ventas[{{ $anio }}][{{ $mes }}]" value="{{ $value }}"
-                                           class="w-full rounded-lg bg-white/20 text-white px-2 py-1 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-cyan-300">
-                                </div>
-                            </td>
+<td class="px-2 py-1">
+    <div class="flex items-center">
+        <span class="mr-1">$</span>
+        <input type="text" 
+               name="ventas[{{ $anio }}][{{ $mes }}]" 
+               value="{{ number_format($value, 2, '.', ',') }}"
+               class="w-full text-right rounded-lg bg-white/20 text-white px-2 py-1">
+    </div>
+</td>
                         @endforeach
                     </tr>
                     @endforeach

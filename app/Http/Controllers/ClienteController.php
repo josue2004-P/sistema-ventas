@@ -117,6 +117,12 @@ class ClienteController extends Controller
         $data = [];
         foreach ($ventas as $anio => $meses) {
             foreach ($meses as $mes => $ingresos) {
+                // Limpiar comas y espacios
+                $ingresos = str_replace([',', ' '], '', $ingresos);
+                
+                // Convertir a float para asegurarnos
+                $ingresos = floatval($ingresos);
+
                 $data[] = [
                     'cliente_id' => $cliente->id,
                     'anio' => $anio,
@@ -137,6 +143,7 @@ class ClienteController extends Controller
 
         return redirect()->back()->with('success', 'Ventas actualizadas correctamente');
     }
+
 
 
 
