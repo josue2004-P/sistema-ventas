@@ -6,6 +6,7 @@ use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmailSettingController;
+use App\Http\Controllers\ClienteVentaController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('email_settings', EmailSettingController::class);
     Route::post('email-settings/test', [EmailSettingController::class, 'sendTest'])->name('email_settings.sendTest');
 
+    Route::get('clientes/{cliente}/venta-general', [ClienteController::class, 'clienteVentaGeneral'])
+     ->name('clientes.venta-general');
+     Route::put('clientes/{id}/venta-general', [ClienteController::class, 'updateVentas'])->name('venta-general.update');
+     
 });
 
 Route::get('/dashboard', function () {
