@@ -28,7 +28,7 @@
     </div>
 
     {{-- Cards --}}
-    <div class="flex-1 overflow-y-auto  grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div class="flex-1 overflow-y-auto  grid grid-cols-1 sm:grid-cols-2 gap-4 lg:hidden">
         @forelse($clientes as $cliente)
             <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-lg hover:bg-white/20 transition">
                 <div class="flex justify-between items-center mb-2">
@@ -68,7 +68,7 @@
     </div>
 
     {{-- Tabla para desktop/laptop --}}
-    {{-- <div class="hidden lg:block overflow-x-auto rounded-xl shadow-lg bg-white/10">
+    <div class="hidden lg:block overflow-x-auto rounded-xl shadow-lg bg-white/10">
         <table class="min-w-[700px] w-full text-white table-auto">
             <thead class="bg-white/20">
                 <tr>
@@ -107,6 +107,6 @@
                 @endforelse
             </tbody>
         </table>
-    </div> --}}
+    </div>
 
 </x-app-layout>

@@ -14,28 +14,41 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased bg-gradient-to-br from-blue-500 to-cyan-400 text-white  h-[100dvh] flex flex-col">
+    <body x-data="{ open: false }" class="font-sans antialiased bg-gradient-to-br from-blue-500 to-cyan-400 text-white h-[100dvh] flex flex-col">
 
         {{-- Sidebar --}}
-        {{-- <x-sidebar /> --}}
-
+        <x-sidebar />
+        <div x-show="open" @click="open = false" class="fixed inset-0 bg-black/50 z-40 md:hidden"></div>
+            
         {{-- Page Heading --}}
         @isset($header)
-            <header class="bg-white/20 backdrop-blur-md shadow-md">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-white font-semibold">
-                    {{ $header }}
-                </div>
-            </header>
+        <header class="bg-white/20 backdrop-blur-md shadow-md flex items-center justify-between">
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-white font-semibold flex-1 flex items-center justify-between">
+                {{ $header }}
+
+                {{-- Botón hamburguesa móvil --}}
+                <button 
+                   @click="open = true"
+                    class="md:hidden p-2 rounded bg-white/20 hover:bg-white/30 transition"
+                >
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+
+            </div>
+        </header>
         @endisset
 
         {{-- Page Content --}}
-       <main class="h-[calc(100dvh-10rem)] flex-1  p-4 bg-white/10 backdrop-blur-md rounded-xl mx-3 my-4 flex flex-col ">
+       <main class="h-[calc(100dvh-10rem)] lg:pl-64 flex-1  p-4 bg-white/10 backdrop-blur-md rounded-xl mx-3 my-4 flex flex-col ">
             {{ $slot }}
         </main>
 
         {{-- FOOTER --}}
-        <footer class="h-16 bg-gray-800 text-white flex items-center justify-center">
-            Footer fijo abajo
+        <footer class="h-16 bg-white/20 backdrop-blur-md text-white flex items-center justify-center rounded-t-xl shadow-lg">
+            © 2025 - Todos los derechos reservados
         </footer>
 
         @stack('scripts')
