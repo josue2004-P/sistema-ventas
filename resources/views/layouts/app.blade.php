@@ -14,38 +14,30 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased bg-gradient-to-br from-blue-500 to-cyan-400 text-white  h-[calc(100dvh)]">
-
-    <div x-data="{ open: false }" class="flex  h-[calc(100dvh)]">
+    <body class="font-sans antialiased bg-gradient-to-br from-blue-500 to-cyan-400 text-white  h-[100dvh] flex flex-col">
 
         {{-- Sidebar --}}
-        <x-sidebar />
+        {{-- <x-sidebar /> --}}
 
-        {{-- Overlay móvil --}}
-        <div x-show="open" @click="open = false" class="fixed inset-0 bg-black/50 z-40 md:hidden"></div>
+        {{-- Page Heading --}}
+        @isset($header)
+            <header class="bg-white/20 backdrop-blur-md shadow-md">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-white font-semibold">
+                    {{ $header }}
+                </div>
+            </header>
+        @endisset
 
-        {{-- Contenido principal --}}
-        <div class="flex-1 md:ml-64 flex flex-col">
+        {{-- Page Content --}}
+       <main class="h-[calc(100vh-8rem)] flex-1  p-4 bg-white/10 backdrop-blur-md rounded-xl mx-3 my-4 flex flex-col ">
+            {{ $slot }}
+        </main>
 
-            {{-- Botón hamburger móvil --}}
-            <div class="md:hidden p-4">
-                <button @click="open = true" class="text-white text-2xl font-bold">&#9776;</button>
-            </div>
+        {{-- FOOTER --}}
+        <footer class="h-16 bg-gray-800 text-white flex items-center justify-center">
+            Footer fijo abajo
+        </footer>
 
-            {{-- Page Heading --}}
-            @isset($header)
-                <header class="bg-white/20 backdrop-blur-md shadow-md">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-white font-semibold">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
-
-            {{-- Page Content --}}
-            <main class="h-[calc(100vh-4rem)] p-4 bg-white/10 backdrop-blur-md rounded-xl mx-2 my-4">
-                {{ $slot }}
-            </main>
-        </div>
         @stack('scripts')
     </body>
 </html>

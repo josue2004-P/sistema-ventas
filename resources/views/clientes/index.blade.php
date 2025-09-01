@@ -2,13 +2,13 @@
     <x-slot name="header">Clientes</x-slot>
 
     {{-- Botón Nuevo Cliente y Buscador --}}
-    <div class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div class="h-26 mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 shrink-0">
         <a href="{{ route('clientes.create') }}"
         class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded transition">
             Nuevo Cliente
         </a>
-
-        <form action="{{ route('clientes.index') }}" method="GET" class="flex flex-col sm:flex-row sm:items-center gap-2">
+        <form action="{{ route('clientes.index') }}" method="GET" 
+              class="flex flex-col sm:flex-row sm:items-center gap-2 w-full sm:w-auto">
             <input type="text" name="cuenta" value="{{ request('cuenta') }}" placeholder="Buscar por cuenta" 
                 class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded transition w-full sm:flex-1">
 
@@ -25,11 +25,10 @@
                 @endif
             </div>
         </form>
-
     </div>
 
-    {{-- Cards para móvil/tablet --}}
-    <div class=" h-[40vh] overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-4 lg:hidden">
+    {{-- Cards --}}
+    <div class="flex-1 overflow-y-auto  grid grid-cols-1 sm:grid-cols-2 gap-4">
         @forelse($clientes as $cliente)
             <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 shadow-lg hover:bg-white/20 transition">
                 <div class="flex justify-between items-center mb-2">
@@ -49,9 +48,9 @@
                 </div>
                 <div class="flex gap-2 mt-2 flex-wrap">
                     <a href="{{ route('clientes.edit', $cliente) }}" 
-                       class="text-cyan-200 hover:text-white transition font-medium">Editar</a>
+                    class="text-cyan-200 hover:text-white transition font-medium">Editar</a>
                     <a href="{{ route('clientes.venta-general', $cliente) }}" 
-                       class="text-purple-200 hover:text-white transition font-medium">Venta General</a>
+                    class="text-purple-200 hover:text-white transition font-medium">Venta General</a>
                     <form action="{{ route('clientes.destroy', $cliente) }}" method="POST">
                         @csrf @method('DELETE')
                         <button onclick="return confirm('¿Eliminar?')" 
@@ -69,7 +68,7 @@
     </div>
 
     {{-- Tabla para desktop/laptop --}}
-    <div class="hidden lg:block overflow-x-auto rounded-xl shadow-lg bg-white/10">
+    {{-- <div class="hidden lg:block overflow-x-auto rounded-xl shadow-lg bg-white/10">
         <table class="min-w-[700px] w-full text-white table-auto">
             <thead class="bg-white/20">
                 <tr>
@@ -108,6 +107,6 @@
                 @endforelse
             </tbody>
         </table>
-    </div>
+    </div> --}}
 
 </x-app-layout>
