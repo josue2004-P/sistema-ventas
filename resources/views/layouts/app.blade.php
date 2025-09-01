@@ -29,7 +29,7 @@
         @endisset
 
         {{-- Page Content --}}
-       <main class="h-[calc(100vh-8rem)] flex-1  p-4 bg-white/10 backdrop-blur-md rounded-xl mx-3 my-4 flex flex-col ">
+       <main class="h-[calc(100dvh-8rem)] flex-1  p-4 bg-white/10 backdrop-blur-md rounded-xl mx-3 my-4 flex flex-col ">
             {{ $slot }}
         </main>
 
