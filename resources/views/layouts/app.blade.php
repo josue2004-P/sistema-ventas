@@ -22,7 +22,7 @@
             
         {{-- Page Heading --}}
         @isset($header)
-        <header class="bg-white/20 backdrop-blur-md shadow-md flex items-center justify-between">
+        <header class="h-16 bg-white/20 backdrop-blur-md shadow-md flex items-center justify-between">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-white font-semibold flex-1 flex items-center justify-between">
                 {{ $header }}
 

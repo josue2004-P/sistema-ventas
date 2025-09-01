@@ -1,5 +1,9 @@
 <x-app-layout>
-    <x-slot name="header">Ventas Generales de {{ $cliente->nombre }}</x-slot>
+    <x-slot name="header">Ventas Generales de                        
+        {{ $cliente->esNegocio
+            ? $cliente->nombreComercio 
+            : trim($cliente->nombre . ' ' . $cliente->apellidoPaterno . ' ' . $cliente->apellidoMaterno) 
+        }}</x-slot>
 
     <div class="mb-4 flex justify-between items-center">
         <a href="{{ route('clientes.index') }}" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded transition">Volver</a>
@@ -10,7 +14,7 @@
         <form id="ventas-form" action="{{ route('venta-general.update', $cliente->id) }}" method="POST">
             @csrf
             @method('PUT')
-            <table class="w-full text-white rounded-xl shadow-lg overflow-hidden">
+            <table class="w-full text-white rounded-xl shadow-lg overflow-hidden text-basic">
                 <thead class="bg-white/20">
                     <tr>
                         <th class="px-4 py-2">Mes / Año</th>
@@ -34,15 +38,15 @@
                             @php
                                 $value = $ventasPivot[$mes][$anio] ?? 0;
                             @endphp
-<td class="px-2 py-1">
-    <div class="flex items-center">
-        <span class="mr-1">$</span>
-        <input type="text" 
-               name="ventas[{{ $anio }}][{{ $mes }}]" 
-               value="{{ number_format($value, 2, '.', ',') }}"
-               class="w-full text-right rounded-lg bg-white/20 text-white px-2 py-1">
-    </div>
-</td>
+                        <td class="px-2 py-1">
+                            <div class="flex items-center">
+                                <span class="mr-1">$</span>
+                                <input type="text" 
+                                    name="ventas[{{ $anio }}][{{ $mes }}]" 
+                                    value="{{ number_format($value, 2, '.', ',') }}"
+                                    class="text-sm w-[7rem] text-right rounded-lg bg-white/20 text-white px-2 py-1">
+                            </div>
+                        </td>
                         @endforeach
                     </tr>
                     @endforeach
